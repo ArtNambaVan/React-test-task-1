@@ -12,7 +12,7 @@ class News extends React.Component {
             country: 'ru'
         }
         this.getNews = this.getNews.bind(this)
-        this.onChange = this.onChange.bind(this)
+        //this.onChange = this.onChange.bind(this)
     }
 
      async getNews() {
@@ -30,7 +30,14 @@ class News extends React.Component {
 		}
 	}
 
-    onChange(e) {
+    // onChange(e) {
+    //     const value = e.target.value;
+    //     this.setState({
+    //         country: value
+    //     }, () => this.getNews())
+    // }
+
+    onChange = (e) => {
         const value = e.target.value;
         this.setState({
             country: value
@@ -54,7 +61,7 @@ class News extends React.Component {
                     <MenuItem value="us">USA</MenuItem>
                 </Select>
 
-                <Grid container spacing={4} style={{padding: 24}}>
+                <Grid container spacing={4}>
                     { this.state.news.map((news, index) => (
                         <Grid key={index} item xs={12} sm={6} lg={4} xl={3}>
                             <NewsItem
