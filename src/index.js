@@ -1,16 +1,14 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-// import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { store } from './store/storeConfig'
 import App from "./App";
 
-const Routing = () => {
-    return (
 
+
+
+ReactDOM.render(
+    <Provider store={store}>
         <App />
-
-    )
-}
-
-
-ReactDOM.render(<Routing />, document.getElementById("root"));
+    </Provider>, document.getElementById("root"));

@@ -1,35 +1,46 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux'
+import {login} from '../actions/login';
+import {  Redirect } from 'react-router-dom';
 
 class Login extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             userName: '',
-            password: ''
+            password: '',
+            errors: {},
+            isLoading: false
         }
     }
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log(e.target)
+        const { userName, password } = this.state;
+        if (userName && password) {
+            
+        }
+        this.props.login(userName, password);
     }
 
     handleChange = (e) => {
-        console.log(e.target.name)
-        const value = e.target.value;
-        const name = e.target.name;
         this.setState({
-            [name]: value
+            [e.target.name]: e.target.value
         });
     }
     render() {
+        console.log(this.props)
+        if(this.props.loggingIn) {
+            return <Redirect to={'/profile'}/>;
+        }
+            
         return (
             <div>
                 <h1>Login</h1>
+                { this.props.errorMsg && <p>{this.props.errorMsg}</p> }
                 <form onSubmit={this.handleSubmit}>
                     <TextField
-                        required
                         label="Name"
                         value={this.state.userName}
                         onChange={this.handleChange}
@@ -37,7 +48,6 @@ class Login extends React.Component {
                         name="userName"
                     />
                     <TextField
-                        required
                         label="Password"
                         type="password"
                         value={this.state.password}
@@ -53,4 +63,16 @@ class Login extends React.Component {
         )
     }
 }
-export default Login
+
+function mapStateToProps(state) {
+    console.log(state)
+    const loggingIn = state.authentication.loggedIn;
+    const errorMsg = state.authentication.message
+    return { loggingIn, errorMsg };
+}
+
+const actionCreators = {
+    login: login
+};
+
+export default connect(mapStateToProps, actionCreators)(Login)
