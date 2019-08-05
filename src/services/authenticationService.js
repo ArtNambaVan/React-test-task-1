@@ -1,13 +1,13 @@
 const login = (username, password) => (
     new Promise((resolve, reject) => {
-      if (username === 'Admin' && password === '12345') {
-        localStorage.setItem('user', JSON.stringify(username))
-        resolve(
-            username
-        );
-      } else {
-        reject('Не верный пароль или пользователь');
-      }
+        if (username === 'Admin' && password === '12345') {
+            localStorage.setItem('user', JSON.stringify(username))
+            resolve(
+                username
+            );
+        } else {
+            reject('Неверный пароль или логин');
+        }
     })
 );
 
@@ -16,6 +16,6 @@ const logout = () => {
 }
 
 export const auth = {
-  login,
-  logout
+    login,
+    logout
 }

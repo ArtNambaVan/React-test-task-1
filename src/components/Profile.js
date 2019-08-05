@@ -1,27 +1,60 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { logOut } from '../actions/login';
+import { Container, CssBaseline, Typography, Button } from '@material-ui/core'
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import { withStyles } from '@material-ui/styles';
+
+const styles = {
+    user: {
+        padding: 30,
+        marginTop: 150,
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        textAlign: 'center'
+    },
+    userName: {
+        marginBottom: 10,
+        color: '#333',
+    },
+    userIcon: {
+        width: 80,
+        height: 80,
+        display: 'block',
+        margin: '0 auto 10px auto',
+    }
+}
 
 class Profile extends React.Component {
-
     logOut = (e) => {
-        console.log(this.props)
         this.props.logOut();
     };
     render() {
-        console.log(this.props)
+        const { classes } = this.props;
         return (
-            <React.Fragment>
-                <h1>Profile { this.props.user && <span>{this.props.user}</span> }</h1>
-                <button onClick={this.logOut}>Log out</button>
-            </React.Fragment>
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <div className={classes.user}>
+                    <Typography component="h2" variant="h5">
+                        Profile
+                    </Typography>
+                    
+                    { this.props.user &&
+                    <Typography className={classes.userName} variant="body2" color="textSecondary" component="p">
+                        {this.props.user}
+                    </Typography>    
+                    }
+                    <AccountCircle className={classes.userIcon}/>
+                    <Button onClick={this.logOut} variant="contained" color="primary" align="center">Log out</Button>
+                </div>
+                
+            </Container>
             
         )
     }
 }
 
 const mapStateToProps = state => {
-    console.log(state)
     const loggingIn = state.authentication.loggedIn;
     const user = state.authentication.user
     return { user, loggingIn }
@@ -32,4 +65,4 @@ const actionCreators = {
 };
 
 
-export default connect(mapStateToProps, actionCreators)(Profile)
+export default connect(mapStateToProps, actionCreators)(withStyles(styles)(Profile))

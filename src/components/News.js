@@ -1,8 +1,24 @@
 import React from 'react'
-import NewsItem from './NewsItem'
+import NewsItem from './NewsItem/index'
 import Grid from '@material-ui/core/Grid'
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import { withStyles } from '@material-ui/styles';
+import Typography from '@material-ui/core/Typography';
+
+const styles = {
+    root: {
+        padding: 30,
+        backgroundColor: '#fff',
+        borderRadius: 10
+    },
+    select: {
+        marginLeft: 10
+    },
+    title: {
+        marginBottom: 16
+    }
+}
 
 class News extends React.Component {
     constructor(props) {
@@ -12,7 +28,6 @@ class News extends React.Component {
             country: 'ru'
         }
         this.getNews = this.getNews.bind(this)
-        //this.onChange = this.onChange.bind(this)
     }
 
      async getNews() {
@@ -30,13 +45,6 @@ class News extends React.Component {
 		}
 	}
 
-    // onChange(e) {
-    //     const value = e.target.value;
-    //     this.setState({
-    //         country: value
-    //     }, () => this.getNews())
-    // }
-
     onChange = (e) => {
         const value = e.target.value;
         this.setState({
@@ -49,18 +57,21 @@ class News extends React.Component {
     }
   
     render() {
+        const { classes } = this.props;
         return (
             <div>
-                <h1>News</h1>
-                <Select
-                    value={this.state.country}
-                    onChange={this.onChange}
-                >
-                    <MenuItem value="ru">Russia</MenuItem>
-                    <MenuItem value="ua">Ukrain</MenuItem>
-                    <MenuItem value="us">USA</MenuItem>
-                </Select>
-
+                <Typography component="h2" variant="h5" align="center" className={classes.title}>
+                    News in 
+                    <Select
+                        value={this.state.country}
+                        onChange={this.onChange}
+                        className={classes.select}
+                    >
+                        <MenuItem value="ru">Russia</MenuItem>
+                        <MenuItem value="ua">Ukrain</MenuItem>
+                        <MenuItem value="us">USA</MenuItem>
+                    </Select>
+                </Typography>
                 <Grid container spacing={4}>
                     { this.state.news.map((news, index) => (
                         <Grid key={index} item xs={12} sm={6} lg={4} xl={3}>
@@ -80,4 +91,4 @@ class News extends React.Component {
 }
 
 
-export default News
+export default withStyles(styles)(News)

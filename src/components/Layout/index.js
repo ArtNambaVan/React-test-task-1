@@ -2,48 +2,48 @@ import React from 'react';
 
 import {
     AppBar, CssBaseline, Divider, Drawer, Hidden,
-    ListItemText, Toolbar, Typography,
+    Toolbar, Typography,
     MenuList, MenuItem, IconButton, 
 } from '@material-ui/core';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import {Link, withRouter  } from 'react-router-dom'
-
-
-
+import MenuIcon from '@material-ui/icons/Menu';
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-  },
-  drawer: {
-    [theme.breakpoints.up('sm')]: {
-      width: drawerWidth,
-      flexShrink: 0,
+    root: {
+        display: 'flex',
+        minHeight: '100vh',
+        backgroundColor: 'rgba(86,186,237,0.5)',
     },
-  },
-  appBar: {
-    marginLeft: drawerWidth,
-    [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
+    drawer: {
+        [theme.breakpoints.up('sm')]: {
+            width: drawerWidth,
+            flexShrink: 0,
+        },
     },
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
+    appBar: {
+        marginLeft: drawerWidth,
+        [theme.breakpoints.up('sm')]: {
+            width: `calc(100% - ${drawerWidth}px)`,
+        },
     },
-  },
-  toolbar: theme.mixins.toolbar,
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-  },
+    menuButton: {
+        marginRight: theme.spacing(2),
+        [theme.breakpoints.up('sm')]: {
+            display: 'none',
+        },
+    },
+    toolbar: theme.mixins.toolbar,
+    drawerPaper: {
+        width: drawerWidth,
+    },
+    content: {
+        flexGrow: 1,
+        padding: theme.spacing(3),
+    },
 }));
 
 function Layout(props) {
@@ -54,7 +54,6 @@ function Layout(props) {
     function handleDrawerToggle() {
         setMobileOpen(!mobileOpen);
     }
-
     const drawer = (
         <div>
             <div className={classes.toolbar} />
@@ -87,8 +86,8 @@ function Layout(props) {
                 aria-label="open drawer"
                 edge="start"
                 onClick={handleDrawerToggle}
-                className={classes.menuButton}
-                >
+                className={classes.menuButton}>
+                    <MenuIcon />
                 </IconButton>
                 <Typography variant="h6" noWrap>
                     React Test Task 1
